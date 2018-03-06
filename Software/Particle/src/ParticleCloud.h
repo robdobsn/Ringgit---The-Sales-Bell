@@ -102,11 +102,11 @@ public:
     // Check if particle variables registered
     if (!__particleVariablesRegistered)
     {
-      Log.trace("Registering particle variables");
       if (WiFi.ready())
       {
         if (Particle.connected())
         {
+          Log.trace("Registering particle variables");
           registerVariables();
           __particleVariablesRegistered = true;
         }

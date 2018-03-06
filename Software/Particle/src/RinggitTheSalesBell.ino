@@ -17,7 +17,7 @@
 // Settings for the bell motor
 static const char* BELL_CONTROL_CONFIG =
       "{\"bellStepPin\":\"D2\",\"bellDirnPin\":\"D3\","
-      "\"bellEnablePin\":\"A2\",\"ringSteps\":900,\"stepUs\":40}";
+      "\"bellEnablePin\":\"A2\"}";
 
 //#define USE_STATUS_DISPLAY 1
 #define ENABLE_WEB_SERVER 1
