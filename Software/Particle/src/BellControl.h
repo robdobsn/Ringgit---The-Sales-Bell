@@ -23,7 +23,7 @@ class BellControl
 {
 private:
     static const int MAX_RINGS = 10;
-    static const int RING_STEPS = 100;
+    static const int RING_STEPS = 200;
     static const int RING_STEP_SCALING = 10;
     static const int RETURN_TO_IDLE_MS = 1000;
     static const bool STEP_ENABLE_ON = false;

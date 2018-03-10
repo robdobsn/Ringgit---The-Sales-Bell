@@ -52,13 +52,12 @@ def writeFileContentsAsHex(filePath, outFile, compress):
     contentEncoding = ""
     if compress and file_extension.upper()[:4] == ".HTM":
         removeReqd = True
-        print("Minifying")
         inFileName = filename + ".tmp"
         # Copy file
-        print("Copying", filePath, "to", inFileName)
+        # print("Copying", filePath, "to", inFileName)
         shutil.copyfile(filePath, inFileName)
         # Try to minify using html-minifier
-        print("Running minifier on", filePath)
+        # print("Running minifier on", filePath)
         rslt = subprocess.run(["html-minifier", filePath, "--minify-js", "--minify-css", "--remove-comments"], shell=True, stdout=subprocess.PIPE)
         if (rslt.returncode == 0):
             # print(rslt)
@@ -101,10 +100,11 @@ def writeFileContentsAsHex(filePath, outFile, compress):
             chCount += 1
 
     if removeReqd:
-        print("Removing", inFileName)
-        os.remove(inFileName)
-
-    print("Content encoding is " + contentEncoding)
+        try:
+            os.remove(inFileName)
+        except:
+            print("Failed to remove", inFileName)
+    print("Content encoding is " + ("none" if contentEncoding == "" else contentEncoding))
     
     return contentEncoding
 
@@ -136,7 +136,8 @@ with open(outFilePath, "w") as outFile:
             fileOnly = fileOnly.replace("-", "_")
             fileOnly = fileOnly.replace(".", "_")
             cIdent = "resov_" + fileOnly + "_" + fileExt[1:]
-            print(cIdent, fileName)
+            print("--------------")
+            print("Starting conversion of", fileName, "to header file symbol", cIdent)
             # Write variable def
             outFile.write("static const uint8_t " + cIdent + "[] {")
             # Write file contents as hex
@@ -172,4 +173,5 @@ with open(outFilePath, "w") as outFile:
     # Write the size of the resource list
     outFile.write("static int genResourcesOvCount = sizeof(genResourcesOv) / sizeof(RdWebServerResourceDescr);\n\n");
 
-print("File written to", outFilePath)
+print("================")
+print("Output", outFilePath)
