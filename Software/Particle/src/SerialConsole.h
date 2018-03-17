@@ -50,6 +50,7 @@ public:
                 Serial.println("W/ssid/password - setup wifi");
                 Serial.println("WC - clear wifi ssid table");
                 Serial.println("RESET - restart unit");
+                Serial.println("DFU - enter DFU mode");
                 return;
             }
 
@@ -70,6 +71,19 @@ public:
         // Check line not too long
         if (_curLine.length() >= ABS_MAX_LINE_LEN)
         {
+            return;
+        }
+
+        // Check for backspace
+        if (ch == 0x08)
+        {
+            if (_curLine.length() > 0)
+            {
+                _curLine.remove(_curLine.length()-1);
+                Serial.print((char)ch);
+                Serial.print(' ');
+                Serial.print((char)ch);
+            }
             return;
         }
 

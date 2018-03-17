@@ -56,4 +56,7 @@ void setupRestAPI_Helpers()
     // Reset device
     restAPIEndpoints.addEndpoint("RESET", RestAPIEndpointDef::ENDPOINT_CALLBACK, restAPI_Reset, "", "");
 
+    // DFU mode
+    restAPIEndpoints.addEndpoint("DFU", RestAPIEndpointDef::ENDPOINT_CALLBACK, restAPI_DFU, "", "");
+
 }

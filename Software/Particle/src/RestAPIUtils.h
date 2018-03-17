@@ -9,8 +9,12 @@ void restAPI_setResultStr(String& rsltStr, bool rslt)
 
 void restAPI_Reset(RestAPIEndpointMsg& apiMsg, String& retStr)
 {
-
     System.reset();
+}
+
+void restAPI_DFU(RestAPIEndpointMsg& apiMsg, String& retStr)
+{
+    System.dfu();
 }
 
 void handleReceivedApiStr(const char* requestStr, String& rsltStr)

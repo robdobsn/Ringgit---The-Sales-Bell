@@ -9,6 +9,7 @@
 //   Internal antenna:  /WAI                 - internal antenna for WiFi
 //   Ring the bell:     /R/#                 - # is number of times to ring
 //   Reset:             /RESET               - reset device
+//   Enter DFU mode:    /DFU                 - enter DFU mode
 
 // To use through particle cloud
 //   status varialble
@@ -84,7 +85,7 @@ SerialLogHandler logHandler(LOG_LEVEL_TRACE);
  * Learn more about system modes: https://docs.particle.io/reference/firmware/photon/#system-modes .
  */
 SYSTEM_THREAD(ENABLED);
-SYSTEM_MODE(AUTOMATIC);
+SYSTEM_MODE(SEMI_AUTOMATIC);
 STARTUP(System.enableFeature(FEATURE_RESET_INFO));
 
 // Debug loop timer and callback function
@@ -165,6 +166,8 @@ void setup()
     String systemName = "Ringgit";
     Log.info("%s (built %s %s)", systemName.c_str(), __DATE__, __TIME__);
 
+    WiFi.connect();
+    
     // Particle Cloud
 #ifdef ENABLE_CLOUD_SUPPORT
     pParticleCloud = new ParticleCloud(handleReceivedApiStr,

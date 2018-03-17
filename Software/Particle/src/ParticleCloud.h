@@ -67,6 +67,9 @@ public:
   // Time between update checks
   unsigned long _statusEventCheckMs;
 
+  // Cloud already connected
+  bool _connectToCloud;
+
   // System name
   String _systemName;
 
@@ -83,6 +86,7 @@ public:
     _statusUpdateLastMillis = 0;
     _statusEventCheckMs     = statusEventCheckMs;
     _systemName             = systemName;
+    _connectToCloud         = true;
   }
 
   void registerVariables()
@@ -99,6 +103,15 @@ public:
 
   void service()
   {
+    if (WiFi.ready())
+    {
+        if(_connectToCloud && Particle.connected() == false)
+        {
+            Particle.connect();
+            _connectToCloud = false;
+        }
+    }
+
     // Check if particle variables registered
     if (!__particleVariablesRegistered)
     {

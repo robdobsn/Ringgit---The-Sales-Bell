@@ -95,7 +95,7 @@ public:
         __stepISRCount++;
         if (__stepISRCount >= STEP_ISR_BLINK_LED_COUNT)
         {
-            digitalWriteFast(ledPin,!pinReadFast(ledPin));
+            // digitalWriteFast(ledPin,!pinReadFast(ledPin));
             __stepISRCount = 0;
         }
         // Check if active
